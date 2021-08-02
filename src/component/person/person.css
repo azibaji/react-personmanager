@@ -1,0 +1,29 @@
+.person{
+    background-color: darkcyan;
+    padding:30px 10px;
+    width:40%;
+    border-radius:5px;
+    margin:20px auto;
+    text-align: center;
+}
+.person-name{
+    color:white;
+    font-weight: 600;
+    font-size:15px;
+}
+.person-btn{
+    padding:5px;
+    border:1px solid white;
+    color:darkcyan;
+    border-radius: 5px;
+    display: block;
+    margin:0px auto;
+    margin-top:10px;
+    min-width:20%;
+    
+}
+.person-input{
+    padding:5px;
+    border:1px solid white;
+
+}
