@@ -7,7 +7,6 @@ const Persons = ({persons,personDelete,personChange}) =>{
                     return <Person 
                         key = {person.id} 
                         fullName = {person.fullName} 
-                        age = {person.age}
                         personDelete = {()=>{
                             personDelete(person.id)
                         }}

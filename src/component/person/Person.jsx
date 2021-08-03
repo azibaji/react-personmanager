@@ -1,7 +1,7 @@
 import React from 'react';
 import './person.css'
 
- const Person =({fullName,age, personDelete,changeName}) =>{
+ const Person =({fullName, personDelete,changeName}) =>{
     return(
         <div className="person">
             <p className="person-name">{`${fullName}`}</p>

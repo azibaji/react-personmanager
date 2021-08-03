@@ -4,12 +4,13 @@ import Persons from './component/person/Persons';
 class App extends Component{
     state = {
         persons:[
-            {id :"1", fullName:'Arezou Saremian', age:'28'},
-            {id :"2", fullName:'Samira Saremian', age:'35'},
-            {id :"3", fullName:'Firouzeh Saremian',  age:'32'},
-            {id :"4", fullName:'MohamadJavad Saremian', age:'36'},
+            {id :"1", fullName:'Arezou Saremian'},
+            {id :"2", fullName:'Samira Saremian'},
+            {id :"3", fullName:'Firouzeh Saremian'},
+            {id :"4", fullName:'MohamadJavad Saremian'},
         ],
-        showPersons:false
+        showPersons:false,
+        person:''
     }
     handleShowPersons =()=>{
         this.setState({showPersons : !this.state.showPersons} )
@@ -29,6 +30,18 @@ class App extends Component{
         allPersons[personIndex] = person;
         this.setState({persons : allPersons})
     }
+    handleAddPerson =()=>{
+        const persons = [...this.state.persons]
+        const person ={
+            id: Math.floor(Math.random()*1000),
+            fullName : this.state.person
+        }
+        persons.push(person)
+        this.setState({persons, person :" "})
+    }
+    setPerson = event =>{
+        this.setState({person: event.target.value})
+    }
     render(){
         const {persons, showPersons} = this.state
         let person = null
@@ -38,6 +51,10 @@ class App extends Component{
         return(
             <div style={{textAlign:"center"}}>
                 <h1 style ={{color:"#6388b7"}}>Persons manager : </h1>
+                <div>
+                    <input type="text" onChange={this.setPerson} value={this.state.person}/>
+                    <button onClick={this.handleAddPerson}>Add</button>
+                </div>
                 <button onClick={this.handleShowPersons}>Show Persons</button>
                 <p >
                     Persons number : 
