@@ -9,7 +9,7 @@ class App extends Component{
             {id :"3", fullName:'Firouzeh Saremian'},
             {id :"4", fullName:'MohamadJavad Saremian'},
         ],
-        showPersons:false,
+        showPersons:true,
         person:''
     }
     handleShowPersons =()=>{
@@ -49,17 +49,30 @@ class App extends Component{
             person = <Persons persons={persons} personDelete={this.handleDeletedPersons} personChange ={this.handleNameChanger}/>
         }
         return(
-            <div style={{textAlign:"center"}}>
-                <h1 style ={{color:"#6388b7"}}>Persons manager : </h1>
-                <div>
-                    <input type="text" onChange={this.setPerson} value={this.state.person}/>
-                    <button onClick={this.handleAddPerson}>Add</button>
+            <div className="text-center">
+                <div className="alert alert-info">
+                    <h2 >Persons manager : </h2>
                 </div>
-                <button onClick={this.handleShowPersons}>Show Persons</button>
                 <p >
-                    Persons number : 
-                    <span style={{backgroundColor:"blue", borderRadius:"50%", color:"white", padding:"4px 7px"}}>{persons.length>0 ? persons.length : 0}</span>
+                    There are 
+                    <span style={{backgroundColor:"blue", borderRadius:"50%", color:"white", padding:"4px 7px", margin:"0px 4px"}}>{persons.length>0 ? persons.length : 0}</span>
+                    number person.
                 </p>
+                <div className="m-2 p-2">
+                    <form className="form-inline justify-content-center" onSubmit={event => event.preventDefault()}>
+                        <div className="input-group w-25 m-auto">
+                            <input type="text" className="form-control" onChange={this.setPerson} value={this.state.person} placeholder="Give me a name"/>
+                            <div className="input-group-prepend">
+                            <button type="submit" onClick={this.handleAddPerson} className="btn btn-md btn-success fa fa-plus" />
+                            </div>
+                        </div>
+                    </form>
+                    
+                </div>
+                <button onClick={this.handleShowPersons} className="btn btn-info" >
+                    Show Persons
+                </button>
+                
                 {person}
                 
             </div>
