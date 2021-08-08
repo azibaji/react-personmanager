@@ -36,8 +36,10 @@ class App extends Component{
             id: Math.floor(Math.random()*1000),
             fullName : this.state.person
         }
-        persons.push(person)
-        this.setState({persons, person :" "})
+        if(person.fullName !=="" && person.fullName !== ' '){
+            persons.push(person)
+            this.setState({persons, person :" "})
+        }
     }
     setPerson = event =>{
         this.setState({person: event.target.value})
