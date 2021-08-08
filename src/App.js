@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import {Alert,Button} from 'react-bootstrap'
+import {ToastContainer , toast} from 'react-toastify'
 import Persons from './component/person/Persons';
 
 class App extends Component{
@@ -19,6 +21,11 @@ class App extends Component{
         const persons = [... this.state.persons]
         const filteredPersons = persons.filter(person => person.id !== id)
         this.setState({persons : filteredPersons})
+        
+        const personIndex = persons.findIndex(p => p.id === id)
+        const person = persons[personIndex]
+        
+        toast.error(`${person.fullName} has been deleted.` )
     }
     handleNameChanger = (event , id) =>{
         const {persons : allPersons} = this.state
@@ -39,6 +46,11 @@ class App extends Component{
         if(person.fullName !=="" && person.fullName !== ' '){
             persons.push(person)
             this.setState({persons, person :" "})
+            toast.success('Congrate; The new user has been added.', {
+                position : "bottom-right",
+                closeButton : true ,
+                closeOnClick :true
+            })
         }
     }
     setPerson = event =>{
@@ -62,28 +74,30 @@ class App extends Component{
         }
         return(
             <div className="text-center">
-                <div className="alert alert-info">
+                <Alert variant="info">
                     <h2 >Persons manager : </h2>
-                </div>
-                <p >
+                </Alert>
+                
+                <Alert variant="light">
                     There are 
                     <span className={`badge tag-pill ${badgeStyle.join(' ')}`}>{persons.length}</span>
                     number person.
-                </p>
+                </Alert>
                 <div className="m-2 p-2">
                     <form className="form-inline justify-content-center" onSubmit={event => event.preventDefault()}>
                         <div className="input-group w-25 m-auto">
                             <input type="text" className="form-control" onChange={this.setPerson} value={this.state.person} placeholder="Give me a name"/>
                             <div className="input-group-prepend">
-                            <button type="submit" onClick={this.handleAddPerson} className="btn btn-md btn-success fa fa-plus" />
+                            <Button type="submit" onClick={this.handleAddPerson} variant="success" className="fa fa-plus" />
+                            <ToastContainer />
                             </div>
                         </div>
                     </form>
                     
                 </div>
-                <button onClick={this.handleShowPersons} className={showPersons ? "btn btn-info" : "btn btn-success"} >
+                <Button onClick={this.handleShowPersons} variant={showPersons ? "info" : "success"} >
                     Show Persons
-                </button>
+                </Button>
                 
                 {person}
                 

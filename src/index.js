@@ -4,6 +4,7 @@ import App from './App';
 // import '../node_modules/bootstrap/dist/css/bootstrap.min.css'
 // import '../node_modules/font-awesome/css/font-awesome.min.css'
 import 'bootstrap/dist/css/bootstrap.min.css';
+import 'react-toastify/dist/ReactToastify.css';
 import './index.css'
 
 render(<App/>,document.getElementById('root'))
