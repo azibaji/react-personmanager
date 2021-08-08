@@ -47,6 +47,16 @@ class App extends Component{
     render(){
         const {persons, showPersons} = this.state
         let person = null
+        let badgeStyle =[]
+        if(persons.length >= 3){
+            badgeStyle.push('alert-success')
+        }
+        if(persons.length <= 2){
+            badgeStyle.push('alert-warning')
+        }
+        if(persons.length <= 1){
+            badgeStyle.push('alert-danger')
+        }
         if(showPersons){
             person = <Persons persons={persons} personDelete={this.handleDeletedPersons} personChange ={this.handleNameChanger}/>
         }
@@ -57,7 +67,7 @@ class App extends Component{
                 </div>
                 <p >
                     There are 
-                    <span style={{backgroundColor:"blue", borderRadius:"50%", color:"white", padding:"4px 7px", margin:"0px 4px"}}>{persons.length>0 ? persons.length : 0}</span>
+                    <span className={`badge tag-pill ${badgeStyle.join(' ')}`}>{persons.length}</span>
                     number person.
                 </p>
                 <div className="m-2 p-2">
@@ -71,7 +81,7 @@ class App extends Component{
                     </form>
                     
                 </div>
-                <button onClick={this.handleShowPersons} className="btn btn-info" >
+                <button onClick={this.handleShowPersons} className={showPersons ? "btn btn-info" : "btn btn-success"} >
                     Show Persons
                 </button>
                 
