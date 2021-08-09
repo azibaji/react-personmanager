@@ -1,7 +1,8 @@
 import React, { Component } from 'react';
-import {Alert,Button} from 'react-bootstrap'
+import {Button} from 'react-bootstrap'
 import {ToastContainer , toast} from 'react-toastify'
 import Persons from './component/person/Persons';
+import Header from './component/Header'
 
 class App extends Component{
     state = {
@@ -59,30 +60,13 @@ class App extends Component{
     render(){
         const {persons, showPersons} = this.state
         let person = null
-        let badgeStyle =[]
-        if(persons.length >= 3){
-            badgeStyle.push('alert-success')
-        }
-        if(persons.length <= 2){
-            badgeStyle.push('alert-warning')
-        }
-        if(persons.length <= 1){
-            badgeStyle.push('alert-danger')
-        }
+        
         if(showPersons){
             person = <Persons persons={persons} personDelete={this.handleDeletedPersons} personChange ={this.handleNameChanger}/>
         }
         return(
             <div className="text-center">
-                <Alert variant="info">
-                    <h2 >Persons manager : </h2>
-                </Alert>
-                
-                <Alert variant="light">
-                    There are 
-                    <span className={`badge tag-pill ${badgeStyle.join(' ')}`}>{persons.length}</span>
-                    number person.
-                </Alert>
+                <Header  persons={persons} appTitle={this.props.title}/>
                 <div className="m-2 p-2">
                     <form className="form-inline justify-content-center" onSubmit={event => event.preventDefault()}>
                         <div className="input-group w-25 m-auto">

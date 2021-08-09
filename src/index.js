@@ -7,4 +7,4 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import 'react-toastify/dist/ReactToastify.css';
 import './index.css'
 
-render(<App/>,document.getElementById('root'))
+render(<App title="Persons manager"/>,document.getElementById('root'))
