@@ -63,14 +63,13 @@ class App extends Component {
     render() {
         const { persons, showPersons } = this.state
         let person = null
-
         if (showPersons) {
-            person = <Persons persons={persons} personDelete={this.handleDeletedPersons} personChange={this.handleNameChanger} />
+            person = <Persons />
         }
         return (
             <simpleContext.Provider value={{state : this.state , handleDeletedPersons : this.handleDeletedPersons, handleNameChanger : this.handleNameChanger, handleAddPerson : this.handleAddPerson, setPerson : this.setPerson}}>
                 <div className="text-center">
-                    <Header />
+                    <Header/>
                     <NewPerson />
                     <Button onClick={this.handleShowPersons} variant={showPersons ? "info" : "success"} >
                         Show Persons
