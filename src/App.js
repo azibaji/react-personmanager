@@ -1,55 +1,49 @@
-import React, { Component } from 'react';
+import React, { useState } from 'react';
 import { Button } from 'react-bootstrap'
 import { toast } from 'react-toastify'
 import Persons from './component/person/Persons';
 import Header from './component/Header'
 import NewPerson from './component/person/NewPerson';
 import simpleContext from './context/simpleContext';
+const App = () =>{
+     
+    const [getPersons , setPersons] = useState([])
+    const [getSinglePerson, setSinglePerson] = useState('')
+    const [getShowPersons , setShowPersons] = useState({showPersons : true})
 
-class App extends Component {
-    state = {
-        persons: [
-            { id: "1", fullName: 'Arezou Saremian' },
-            { id: "2", fullName: 'Samira Saremian' },
-            { id: "3", fullName: 'Firouzeh Saremian' },
-            { id: "4", fullName: 'MohamadJavad Saremian' },
-        ],
-        showPersons: true,
-        person: '',
-        appTitle: "Persons manager"
+    const handleShowPersons = () => {
+        setShowPersons(!getShowPersons )
     }
-    handleShowPersons = () => {
-        this.setState({ showPersons: !this.state.showPersons })
-    }
-    handleDeletedPersons = id => {
-        const persons = [... this.state.persons]
+    const handleDeletedPersons = id => {
+        const persons = [... getPersons]
         const filteredPersons = persons.filter(person => person.id !== id)
-        this.setState({ persons: filteredPersons })
+        setPersons(filteredPersons)
 
         const personIndex = persons.findIndex(p => p.id === id)
         const person = persons[personIndex]
 
         toast.error(`${person.fullName} has been deleted.`)
     }
-    handleNameChanger = (event, id) => {
-        const { persons: allPersons } = this.state
+    const handleNameChanger = (event, id) => {
+        const { persons: allPersons } = getPersons
         const personIndex = allPersons.findIndex(p => p.id === id)
         const person = allPersons[personIndex]
         person.fullName = event.target.value;
-        console.log('event', event)
+        const persons =[...allPersons]
 
-        allPersons[personIndex] = person;
-        this.setState({ persons: allPersons })
+        persons[personIndex] = person;
+        setPersons(persons )
     }
-    handleAddPerson = () => {
-        const persons = [...this.state.persons]
+    const handleAddPerson = () => {
+        const persons = [...getPersons]
         const person = {
             id: Math.floor(Math.random() * 1000),
-            fullName: this.state.person
+            fullName: getSinglePerson
         }
         if (person.fullName !== "" && person.fullName !== ' ') {
             persons.push(person)
-            this.setState({ persons, person: " " })
+            setPersons(persons)
+            setSinglePerson(" ")
             toast.success('Congrate; The new user has been added.', {
                 position: "bottom-right",
                 closeButton: true,
@@ -57,21 +51,29 @@ class App extends Component {
             })
         }
     }
-    setPerson = event => {
-        this.setState({ person: event.target.value })
+    const setPerson = event => {
+        setSinglePerson( event.target.value )
     }
-    render() {
-        const { persons, showPersons } = this.state
+    const {persons} = getPersons
+    const {showPersons} = getShowPersons
+    // const { persons, showPersons } = this.state
         let person = null
-        if (showPersons) {
+        if (getShowPersons) {
             person = <Persons />
         }
         return (
-            <simpleContext.Provider value={{state : this.state , handleDeletedPersons : this.handleDeletedPersons, handleNameChanger : this.handleNameChanger, handleAddPerson : this.handleAddPerson, setPerson : this.setPerson}}>
+            <simpleContext.Provider 
+            value={{
+                persons : getPersons ,
+                person : getSinglePerson,
+                handleDeletedPersons : handleDeletedPersons,
+                handleNameChanger : handleNameChanger,
+                handleAddPerson : handleAddPerson,
+                setPerson : setPerson}}>
                 <div className="text-center">
-                    <Header/>
+                    <Header appTitle="Persons manager"/>
                     <NewPerson />
-                    <Button onClick={this.handleShowPersons} variant={showPersons ? "info" : "success"} >
+                    <Button onClick={handleShowPersons} variant={getShowPersons ? "info" : "success"} >
                         Show Persons
                     </Button>
 
@@ -81,6 +83,5 @@ class App extends Component {
 
             </simpleContext.Provider>
         )
-    }
 }
 export default App;

@@ -1,9 +1,9 @@
 import React, {useContext} from 'react';
 import {Alert, Badge} from 'react-bootstrap'
 import simpleContext from '../context/simpleContext';
-const Header = ({personsLength}) =>{
+const Header = ({appTitle}) =>{
     const context = useContext(simpleContext)
-    const {persons, appTitle} = context.state; 
+    const {persons} = context;
 
     let badgeStyle =[]
     if(persons.length >= 3){
